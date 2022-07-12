@@ -1,0 +1,821 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cheeseburgerim.gitee.io/chai_gallery/Front-End/Static/web_icon.jpg">
+  <link rel="icon" href="https://cheeseburgerim.gitee.io/chai_gallery/Front-End/Static/web_icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tony Pan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="简介  官网：https:&#x2F;&#x2F;www.docker.com&#x2F; 文档：https:&#x2F;&#x2F;docs.docker.com&#x2F; DockerHub：https:&#x2F;&#x2F;hub.docker.com&#x2F; 教程：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1og4y1q7M4   镜像 - image：docker镜像就好比是一个模板，可以通过这个模板来创建容器服务，通过这个镜像可以创建多个容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习笔记">
+<meta property="og:url" content="https://post.cheeseburgerim.space/Post/2022/Docker/index.html">
+<meta property="og:site_name" content="CheeseburgerIM - Tony Pan">
+<meta property="og:description" content="简介  官网：https:&#x2F;&#x2F;www.docker.com&#x2F; 文档：https:&#x2F;&#x2F;docs.docker.com&#x2F; DockerHub：https:&#x2F;&#x2F;hub.docker.com&#x2F; 教程：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1og4y1q7M4   镜像 - image：docker镜像就好比是一个模板，可以通过这个模板来创建容器服务，通过这个镜像可以创建多个容">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://post.cheeseburgerim.space/.space//1.png">
+<meta property="og:image" content="https://post.cheeseburgerim.space/.space//3.png">
+<meta property="og:image" content="https://post.cheeseburgerim.space/.space//2.png">
+<meta property="article:published_time" content="2022-06-07T23:28:00.000Z">
+<meta property="article:modified_time" content="2022-07-11T13:28:21.782Z">
+<meta property="article:author" content="Tony Pan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://post.cheeseburgerim.space/.space//1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Docker学习笔记 | CheeseburgerIM - Tony Pan</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"post.cheeseburgerim.space","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/404_GIF.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <!-- <a class="navbar-brand" href="/"> -->
+    <a class="navbar-brand" href="https://cheeseburgerim.space" target="_blank">
+      <strong>
+        CheeseburgerIM
+      </strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+            
+              
+                
+                    <li class="nav-item">
+                      <a class="nav-link" href="/">
+                        <i class="iconfont icon-home-fill"></i>
+                          首页
+                      </a>
+                    </li>
+                    
+                      
+          
+            
+              
+                
+                    <li class="nav-item">
+                      <a class="nav-link" href="/archives/">
+                        <i class="iconfont icon-archive-fill"></i>
+                          归档
+                      </a>
+                    </li>
+                    
+                      
+          
+            
+              
+                
+                    <li class="nav-item">
+                      <a class="nav-link" href="/about/">
+                        <i class="iconfont icon-user-fill"></i>
+                          关于
+                      </a>
+                    </li>
+                    
+                      
+                        
+                          <li class="nav-item" id="search-btn">
+                            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal"
+                              data-target="#modalSearch" aria-label="Search">
+                              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+                            </a>
+                          </li>
+                          
+                            
+                              
+                                <li class="nav-item" id="color-toggle-btn">
+                                  <a class="nav-link" target="_self" href="javascript:;"
+                                    aria-label="Color Toggle">&nbsp;<i class="iconfont icon-dark"
+                                      id="color-toggle-icon"></i>&nbsp;</a>
+                                </li>
+                                
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Docker学习笔记</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-08 07:28" pubdate>
+          2022年6月8日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker学习笔记</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年7月11日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h1>
+<ul>
+<li>官网：<a target="_blank" rel="noopener" href="https://www.docker.com/">https://www.docker.com/</a></li>
+<li>文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/">https://docs.docker.com/</a></li>
+<li>DockerHub：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></li>
+<li>教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1og4y1q7M4">https://www.bilibili.com/video/BV1og4y1q7M4</a></li>
+</ul>
+<ol>
+<li>镜像 - image：docker镜像就好比是一个模板，可以通过这个模板来创建容器服务，通过这个镜像可以创建多个容器(最终服务运行或者项目运行就是在容器中的)</li>
+<li>容器 - container：docker利用容器技术，独立运行一个或者一组通过镜像来创建的应用。基本命令包括启动、停止、删除等操作。可以把容器理解为一个建议的Linux系统</li>
+<li>仓库 - repository：就是存放镜像的地方。分为共有仓库和私有仓库</li>
+</ol>
+<h1 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h1>
+<blockquote>
+<p>环境准备：Linux - CentOS 7</p>
+</blockquote>
+<ol>
+<li>环境查看</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">系统内核</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">uname</span> -r</span><br>3.10.0-1160.45.1.el7.x86_64<br><span class="hljs-meta prompt_"># </span><span class="language-bash">系统版本</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cat</span> /etc/os-release</span><br>NAME=&quot;CentOS Linux&quot;<br>VERSION=&quot;7 (Core)&quot;<br>ID=&quot;centos&quot;<br>ID_LIKE=&quot;rhel fedora&quot;<br>VERSION_ID=&quot;7&quot;<br>PRETTY_NAME=&quot;CentOS Linux 7 (Core)&quot;<br>ANSI_COLOR=&quot;0;31&quot;<br>CPE_NAME=&quot;cpe:/o:centos:centos:7&quot;<br>HOME_URL=&quot;https://www.centos.org/&quot;<br>BUG_REPORT_URL=&quot;https://bugs.centos.org/&quot;<br><br>CENTOS_MANTISBT_PROJECT=&quot;CentOS-7&quot;<br>CENTOS_MANTISBT_PROJECT_VERSION=&quot;7&quot;<br>REDHAT_SUPPORT_PRODUCT=&quot;centos&quot;<br>REDHAT_SUPPORT_PRODUCT_VERSION=&quot;7&quot;<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>安装</li>
+</ol>
+<ul>
+<li>查看官方文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/linux/install/">https://docs.docker.com/desktop/linux/install/</a></li>
+<li>腾讯云docker安装教程：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/213/46000">https://cloud.tencent.com/document/product/213/46000</a></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">yum update</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">yum install epel-release -y</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">yum clean all</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">yum list</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">yum install docker-io -y</span><br></code></pre></td></tr></table></figure>
+<p><img src="/.space//1.png" srcset="/img/404_GIF.gif" lazyload alt></p>
+<ol start="3">
+<li>运行</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">systemctl start docker</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker info</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker version</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker run hello-world</span><br></code></pre></td></tr></table></figure>
+<p><img src="/.space//3.png" srcset="/img/404_GIF.gif" lazyload alt></p>
+<p><img src="/.space//2.png" srcset="/img/404_GIF.gif" lazyload alt></p>
+<h1 id="命令"><a class="markdownIt-Anchor" href="#命令"></a> 命令</h1>
+<blockquote>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/">https://docs.docker.com/reference/</a></p>
+</blockquote>
+<ul>
+<li>帮助</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">显示docker的版本信息</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker version</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示docker的系统信息</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker info</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">帮助命令</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker --<span class="hljs-built_in">help</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker [<span class="hljs-built_in">command</span>] --<span class="hljs-built_in">help</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看日志</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker logs</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>进程</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">运行docker</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">systemctl start docker</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">停止docker</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">systemctl stop docker</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">重启docker</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">systemctl restart docker</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>镜像</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查看所有本地镜像</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker images</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker images -a <span class="hljs-comment"># --all 列出所有镜像</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker images -q <span class="hljs-comment"># --quiet 只显示镜像id</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">搜索镜像</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker search [name]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">下载镜像</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker pull [name] <span class="hljs-comment"># 默认下载最新版本</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker pull [name]:[tag]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除镜像</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker rmi -f [image-id]</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker rmi -f [image-id] [image-id]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加标签</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker tag [image-id] [tag]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看镜像历史(构建过程)</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker <span class="hljs-built_in">history</span> [image-id]</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>容器</li>
+</ul>
+<blockquote>
+<p>有镜像才可以创建容器</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">启动容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker run ([parameters]) [image] ([<span class="hljs-built_in">command</span>])</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">参数说明</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">--name=[name] <span class="hljs-comment"># 容器名称</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">-d <span class="hljs-comment"># 后台启动</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">-it <span class="hljs-comment"># 使用交互方式运行, 进入容器查看内容</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">-p [host]:[container] <span class="hljs-comment"># 指定容器端口</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">-P <span class="hljs-comment"># 随机指定端口</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">-v <span class="hljs-comment"># 数据卷挂载</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">退出容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">exit</span> <span class="hljs-comment"># 停止容器并退出</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">Crtl+P+Q <span class="hljs-comment"># 不停止容器并退出</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker ps <span class="hljs-comment"># 查看运行的容器</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker ps -a <span class="hljs-comment"># 查看所有运行过的容器</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker ps -n=[number] <span class="hljs-comment"># 查看若干个最近创建的容器</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker ps -q <span class="hljs-comment"># 只显示容器id</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker <span class="hljs-built_in">rm</span> [container-id] <span class="hljs-comment"># 删除指定容器(不能删除正在运行的容器)</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker <span class="hljs-built_in">rm</span> -f $(docker ps -aq) <span class="hljs-comment"># 删除所有容器</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker start [container-id]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">停止容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker stop [container-id]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">重启容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker restart [container-id]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">强制停止容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker <span class="hljs-built_in">kill</span> [container-id]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">进入正在运行的容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker <span class="hljs-built_in">exec</span> -it [container-id] <span class="hljs-comment"># 创建一个新的终端</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker attach [container-id] <span class="hljs-comment"># 正在执行的终端</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">文件拷贝</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker <span class="hljs-built_in">cp</span> [container-id]:[container-path] [host-path] <span class="hljs-comment"># 容器内拷贝到主机上</span></span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>测试</li>
+</ul>
+<ol>
+<li>CentOS</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">下载centos镜像</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker pull centos</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动并进入容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker run -it centos /bin/bash <span class="hljs-comment"># 这里主机名就是容器id</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">退出容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">exit</span></span><br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>MySQL</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">下载mysql镜像</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker pull mysql</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动mysql容器</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker run -d -p 8081:3306 -v /pyz/mysql/conf.d:/etc/mysql/conf.d -v /pyz/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=[password] --name mysqltest mysql</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-d 后台运行</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-p 端口映射 [host]:[container]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-v volume数据卷挂载 [host]:[container]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-e 环境配置，这里配置了mysql的账户密码</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">--name 容器命名</span><br></code></pre></td></tr></table></figure>
+<p>需要注意的是，启动docker容器时使用<code>-d</code>参数来实现后台运行，就必须要有一个前台进程。如果docker发现这个容器没有提供服务，就会自动停止该容器</p>
+<h1 id="dockerfile"><a class="markdownIt-Anchor" href="#dockerfile"></a> DockerFile</h1>
+<p>DockerFile是用来构建docker镜像的文件，是一个命令参数脚本</p>
+<ol>
+<li>编写一个DockerFile文件</li>
+<li><code>docker build</code>构建成为一个镜像</li>
+<li><code>docker run</code>运行镜像</li>
+<li><code>docker push</code>发布镜像</li>
+</ol>
+<p>很多官方镜像都是基础包，缺少很多功能，所以我们通常会根据需要搭建自己的镜像</p>
+<ol>
+<li>每个保留关键字(指令)都必须是大写字母</li>
+<li>指令从上到下依次执行</li>
+<li><code>#</code>表示注释</li>
+<li>每一个指令都会创建一个新的镜像层并提交</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 基础镜像</span><br><span class="hljs-keyword">FROM</span><br><span class="hljs-comment"># 作者: 姓名+邮箱</span><br><span class="hljs-keyword">MAINTAINER</span><br><span class="hljs-comment"># 构建镜像时需要执行的命令</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"></span><br><span class="language-bash"><span class="hljs-comment"># 添加内容</span></span><br><span class="hljs-keyword">ADD</span><span class="language-bash"></span><br><span class="language-bash"><span class="hljs-comment"># 镜像的工作目录</span></span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"></span><br><span class="language-bash"><span class="hljs-comment"># 挂载的目录</span></span><br><span class="hljs-keyword">VOLUME</span><span class="language-bash"></span><br><span class="language-bash"><span class="hljs-comment"># 向外暴露端口</span></span><br><span class="hljs-keyword">EXPOSE</span><br><span class="hljs-comment"># 容器启动时会执行的命令</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> <span class="hljs-comment"># 只有最后一个会生效且可被替代</span></span><br><span class="hljs-comment"># 容器启动时会执行的命令</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> <span class="hljs-comment"># 可以追加命令</span></span><br><span class="hljs-comment"># 当构建一个被继承构建下一级镜像时会执行的命令</span><br><span class="hljs-keyword">ONBUILD</span><br><span class="hljs-comment"># 与ADD类似, 将文件拷贝到镜像中</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"></span><br><span class="language-bash"><span class="hljs-comment"># 构建的时候设置环境变量</span></span><br><span class="hljs-keyword">ENV</span><br></code></pre></td></tr></table></figure>
+<p>编写完DockerFile文件后使用命令进行构建</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker build -f [dockerfile-path] -t [image-name]:[version] .</span><br></code></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>实战测试：创建一个自己的CentOS镜像</p>
+</blockquote>
+<ol>
+<li>编写DockerFile</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> centos<br><span class="hljs-keyword">MAINTAINER</span> CheeseburgerIM&lt;<span class="hljs-number">13051172893</span>@<span class="hljs-number">163</span>.com&gt;<br><br><span class="hljs-keyword">ENV</span> MYPATH /usr/local<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> <span class="hljs-variable">$MYPATH</span></span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> yum -y install vim</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> yum -y install net-tools</span><br><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">80</span><br><br><span class="hljs-keyword">CMD</span><span class="language-bash"> <span class="hljs-built_in">echo</span> <span class="hljs-variable">$MYPATH</span></span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;------- End -------&quot;</span></span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> /bin/bash</span><br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>构建镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker build -f myDockerFile -t mycentos:1.0 .</span><br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>测试运行</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker run -it mycentos:1.0</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">pwd</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">ifconfig</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">vim <span class="hljs-built_in">test</span></span><br></code></pre></td></tr></table></figure>
+<h1 id="dockerhub"><a class="markdownIt-Anchor" href="#dockerhub"></a> <a target="_blank" rel="noopener" href="https://hub.docker.com/">DockerHub</a></h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">登录</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker login -u [username]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-p [password]</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">发布</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker push [author]/[image-name]:[version]</span><br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Docker学习笔记</div>
+      <div>https://post.cheeseburgerim.space/Post/2022/Docker/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tony Pan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月8日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年7月11日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                <i class="iconfont icon-nc"></i>
+              </span>
+              </a>
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                <i class="iconfont icon-sa"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Post/2022/Linux/" title="Linux学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Post/Master/Mathematics/GaoShu/GaoShu01/" title="高等数学01 - 预备知识">
+                        <span class="hidden-mobile">高等数学01 - 预备知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <a href="https://cheeseburgerim.space" target="_blank"><p style="margin-bottom: auto">@CheeseburgerIM</p></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      
+    </a>
+  </span>
+  
+    
+      <span class="beian-police">
+        
+          <span style="visibility: hidden; width: 0">|</span>
+          <img src="/img/police_beian.png" alt="police-icon"/>
+        
+        <span class="beian-police">津ICP备2021008404号</span>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

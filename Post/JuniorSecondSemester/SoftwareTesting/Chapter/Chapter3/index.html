@@ -1,0 +1,964 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cheeseburgerim.gitee.io/chai_gallery/Front-End/Static/web_icon.jpg">
+  <link rel="icon" href="https://cheeseburgerim.gitee.io/chai_gallery/Front-End/Static/web_icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tony Pan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Chapter03 - Unit Testing &amp; Test Coverage  测试自动化 - Test Automation  Test Automation   使用软件执行测试，自动对比实际输出和预期结果，配置测试环境，控制测试流程，自动分析测试结果并汇报 减少成本  人工 时间 金钱   减少人工操作引入的错误 减少不同个体测试质量的差异 显著减少回归测试的成本  每一个版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件测试03 - 单元测试和测试覆盖">
+<meta property="og:url" content="https://post.cheeseburgerim.space/Post/JuniorSecondSemester/SoftwareTesting/Chapter/Chapter3/index.html">
+<meta property="og:site_name" content="CheeseburgerIM - Tony Pan">
+<meta property="og:description" content="Chapter03 - Unit Testing &amp; Test Coverage  测试自动化 - Test Automation  Test Automation   使用软件执行测试，自动对比实际输出和预期结果，配置测试环境，控制测试流程，自动分析测试结果并汇报 减少成本  人工 时间 金钱   减少人工操作引入的错误 减少不同个体测试质量的差异 显著减少回归测试的成本  每一个版本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://post.cheeseburgerim.space/.space//1.png">
+<meta property="article:published_time" content="2022-05-23T23:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-11T13:28:21.802Z">
+<meta property="article:author" content="Tony Pan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://post.cheeseburgerim.space/.space//1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>软件测试03 - 单元测试和测试覆盖 | CheeseburgerIM - Tony Pan</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"post.cheeseburgerim.space","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/404_GIF.gif","onlypost":true,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <!-- <a class="navbar-brand" href="/"> -->
+    <a class="navbar-brand" href="https://cheeseburgerim.space" target="_blank">
+      <strong>
+        CheeseburgerIM
+      </strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+            
+              
+                
+                    <li class="nav-item">
+                      <a class="nav-link" href="/">
+                        <i class="iconfont icon-home-fill"></i>
+                          首页
+                      </a>
+                    </li>
+                    
+                      
+          
+            
+              
+                
+                    <li class="nav-item">
+                      <a class="nav-link" href="/archives/">
+                        <i class="iconfont icon-archive-fill"></i>
+                          归档
+                      </a>
+                    </li>
+                    
+                      
+          
+            
+              
+                
+                    <li class="nav-item">
+                      <a class="nav-link" href="/about/">
+                        <i class="iconfont icon-user-fill"></i>
+                          关于
+                      </a>
+                    </li>
+                    
+                      
+                        
+                          <li class="nav-item" id="search-btn">
+                            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal"
+                              data-target="#modalSearch" aria-label="Search">
+                              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+                            </a>
+                          </li>
+                          
+                            
+                              
+                                <li class="nav-item" id="color-toggle-btn">
+                                  <a class="nav-link" target="_self" href="javascript:;"
+                                    aria-label="Color Toggle">&nbsp;<i class="iconfont icon-dark"
+                                      id="color-toggle-icon"></i>&nbsp;</a>
+                                </li>
+                                
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">软件测试03 - 单元测试和测试覆盖</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-24 07:00" pubdate>
+          2022年5月24日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">软件测试03 - 单元测试和测试覆盖</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年7月11日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="chapter03-unit-testing-test-coverage"><a class="markdownIt-Anchor" href="#chapter03-unit-testing-test-coverage"></a> Chapter03 - Unit Testing &amp; Test Coverage</h1>
+<h2 id="测试自动化-test-automation"><a class="markdownIt-Anchor" href="#测试自动化-test-automation"></a> 测试自动化 - Test Automation</h2>
+<blockquote>
+<p>Test Automation</p>
+</blockquote>
+<ul>
+<li>使用软件执行测试，自动对比实际输出和预期结果，配置测试环境，控制测试流程，自动分析测试结果并汇报</li>
+<li>减少成本
+<ul>
+<li>人工</li>
+<li>时间</li>
+<li>金钱</li>
+</ul>
+</li>
+<li>减少人工操作引入的错误</li>
+<li>减少不同个体测试质量的差异</li>
+<li>显著减少回归测试的成本
+<ul>
+<li>每一个版本都要执行的测试用例</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Software Testability：软件可测性</p>
+</blockquote>
+<p>用来评估测试用例揭露软件故障的程度</p>
+<ul>
+<li>Plainly Speaking：找到软件中错误的难度</li>
+<li>软件可测性的两个主要的实际问题
+<ul>
+<li>如何向软件提供测试输入</li>
+<li>如何观察测试执行的结果</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Observability：可观察性</p>
+</blockquote>
+<ul>
+<li>观察程序行为的难易程度</li>
+<li>程序行为包括
+<ul>
+<li>程序的输出</li>
+<li>程序对环境的影响</li>
+<li>程序对其他硬件和软件的影响</li>
+</ul>
+</li>
+<li>可以理解为程序执行的&quot;副作用&quot;</li>
+</ul>
+<blockquote>
+<p>Controllability：软件可控性</p>
+</blockquote>
+<ul>
+<li>向程序提供所需输入的难易程度
+<ul>
+<li>测试人员能否轻易的给程序提供输入样例</li>
+</ul>
+</li>
+<li>例如从硬件感应器或分布式软件中得到输入值是较为困难的</li>
+</ul>
+<blockquote>
+<p>Test Case：测试样例</p>
+</blockquote>
+<ul>
+<li>一个测试样例包含多个具有明确功能和结构的部分</li>
+<li>主要包括：
+<ul>
+<li>输入值：Input Value</li>
+<li>预期值：Expected / Oracle</li>
+</ul>
+</li>
+<li>前缀值：Prefix
+<ul>
+<li>测试之前需要完成的操作</li>
+<li>例如选课系统测试前需要进行登录</li>
+</ul>
+</li>
+<li>后缀值：Postfix
+<ul>
+<li>测试之后需要完成的操作</li>
+<li>例如选课系统测试后需要登出用户</li>
+<li>后缀值还包括
+<ul>
+<li>验证值：Verification
+<ul>
+<li>查看测试样例的输出所需要的值</li>
+</ul>
+</li>
+<li>退出值：Exit
+<ul>
+<li>终止程序或使程序回到稳定状态的值或命令</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="测试覆盖-test-coverage"><a class="markdownIt-Anchor" href="#测试覆盖-test-coverage"></a> 测试覆盖 - Test Coverage</h2>
+<ul>
+<li>
+<p>在上一章提到过，测试准则可以被归纳为以下四类</p>
+<ul>
+<li>
+<p>图</p>
+</li>
+<li>
+<p>逻辑表达式</p>
+</li>
+<li>
+<p>输入域</p>
+</li>
+<li>
+<p>语法描述</p>
+</li>
+</ul>
+</li>
+<li>
+<p>上述结构可以从很多软件工件中提取得到</p>
+<ul>
+<li>图可以从UML图、用例、有限状态机、源代码中得到</li>
+<li>逻辑表达式可以从源代码、条件、守卫中得到</li>
+<li>…</li>
+</ul>
+</li>
+<li>
+<p>测试需求Requirement：测试用例需要满足或覆盖的条件</p>
+</li>
+<li>
+<p>测试准则Criterion：对测试集提出测试要求的规则</p>
+<ul>
+<li>帮助我们设计测试需求</li>
+</ul>
+</li>
+<li>
+<p>在实践中，覆盖率不可能达到100%</p>
+</li>
+<li>
+<p>覆盖等级</p>
+<ul>
+<li>测试中覆盖的需求 / 总的需求个数
+<ul>
+<li>例如共有6种口味，样例中仅包含4种口味，则覆盖等级为4/6</li>
+</ul>
+</li>
+<li>这里覆盖等级是可以达到100%的，但这并不能说明测试样例覆盖了所有情况</li>
+</ul>
+</li>
+<li>
+<p>生成器和识别器</p>
+<ul>
+<li>生成器：Generator - 自动化生成满足测试准则样例的过程</li>
+<li>识别器：Recognizer - 判断测试集是否满足测试准测的过程</li>
+<li>需要注意的是：判断测试样例是否符合测试准则(识别器)要比按照测试准则自动化生成测试样例(生成器)简单得多</li>
+</ul>
+</li>
+<li>
+<p>测试准则的比较</p>
+<ul>
+<li>
+<p>若满足测试准则C1的测试样例同时满足C2，则C1 subsume C2</p>
+<ul>
+<li>这里subsume可以翻译为包含，其意义是测试准则C1生成的测试样例对程序的覆盖范围更大</li>
+</ul>
+</li>
+<li>
+<p>即可用C1代替C2；或者说C1要比C2好；或者说C1要比C2更加严格</p>
+</li>
+<li>
+<p>以糖果为例，覆盖每一种口味的准则也一定满足覆盖每一种颜色，所以这里可以用口味代替颜色</p>
+</li>
+<li>
+<p>如果测试样例覆盖了程序中的每一个分支，那么它也一定能够覆盖程序中的每一条语句？</p>
+</li>
+</ul>
+</li>
+<li>
+<p>基于准则的测试设计的优势</p>
+<ul>
+<li>
+<p>最大化投入产出比</p>
+<ul>
+<li>更少的测试找到更多的问题</li>
+</ul>
+</li>
+<li>
+<p>减少测试样例的重合程度</p>
+</li>
+<li>
+<p>帮助实现从软件工件到测试的追踪？</p>
+<ul>
+<li>
+<p>设计每一个测试用例的原因，解释测试用例的意义</p>
+<ul>
+<li>可以覆盖独一无二的语句，其他用例无法到达</li>
+<li>…</li>
+</ul>
+</li>
+<li>
+<p>给回归测试提供内在支持，使回归测试更容易？</p>
+<ul>
+<li>当代码修改时不需要重新执行所有的测试用例，而是针对修改部分执行特定的一些测试用例</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>给测试人员提供判断何时停止测试的标准</p>
+</li>
+</ul>
+</li>
+<li>
+<p>好的覆盖准则的特点</p>
+<ol>
+<li>自动化的衡量是否符合测试需求</li>
+<li>指导我们更快的生成测试样例</li>
+<li>测试结果可以尽可能多的揭露程序中的错误</li>
+</ol>
+</li>
+<li>
+<p>传统的测试准则</p>
+<ul>
+<li>价格昂贵</li>
+<li>消耗大量人力资源</li>
+</ul>
+</li>
+<li>
+<p>形式化的覆盖准则可以帮助我们决定使用哪些测试样例</p>
+<ul>
+<li>帮助测试人员更容易找到软件中的问题</li>
+<li>对软件的质量和可靠性有更高的保证</li>
+<li>给软件测试提供了目标和停止条件</li>
+<li>使得软件测试变得更高效、更有效</li>
+</ul>
+<ol>
+<li>节约成本</li>
+<li>能找到更多的错误</li>
+<li>开发出更好的软件产品</li>
+</ol>
+</li>
+</ul>
+<p><img src="/.space//1.png" srcset="/img/404_GIF.gif" lazyload alt></p>
+<p><strong>更早、更好的测试能够提高测试经理的能力</strong></p>
+<h2 id="junit"><a class="markdownIt-Anchor" href="#junit"></a> JUnit</h2>
+<blockquote>
+<p>开源的单元测试框架</p>
+<p><a target="_blank" rel="noopener" href="https://junit.org/">JUnit官网</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/junit-team">Github仓库</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hamcrest/JavaHamcrest">Hamcrest</a>：JUnit扩展包</p>
+<p><a target="_blank" rel="noopener" href="https://www.eclemma.org/">Eclemma</a> &amp; <a target="_blank" rel="noopener" href="https://www.jacoco.org/jacoco/">JaCoCo</a></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">testMax</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// assertEquals(expected, actual);</span><br>    assertEquals(<span class="hljs-number">7</span>, max(<span class="hljs-number">3</span>,<span class="hljs-number">7</span>));<br>    assertEquals(<span class="hljs-number">3</span>, max(<span class="hljs-number">3</span>,-<span class="hljs-number">7</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>软件测试03 - 单元测试和测试覆盖</div>
+      <div>https://post.cheeseburgerim.space/Post/JuniorSecondSemester/SoftwareTesting/Chapter/Chapter3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tony Pan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年7月11日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                <i class="iconfont icon-nc"></i>
+              </span>
+              </a>
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+              <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                <i class="iconfont icon-sa"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Post/JuniorSecondSemester/SoftwareTesting/Chapter/Chapter4/" title="软件测试04 - 变异测试">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件测试04 - 变异测试</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Post/JuniorSecondSemester/SoftwareTesting/Chapter/Chapter2/" title="软件测试02 - 基础">
+                        <span class="hidden-mobile">软件测试02 - 基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <a href="https://cheeseburgerim.space" target="_blank"><p style="margin-bottom: auto">@CheeseburgerIM</p></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      
+    </a>
+  </span>
+  
+    
+      <span class="beian-police">
+        
+          <span style="visibility: hidden; width: 0">|</span>
+          <img src="/img/police_beian.png" alt="police-icon"/>
+        
+        <span class="beian-police">津ICP备2021008404号</span>
+      </span>
+    
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    
+      <script  src="/js/img-lazyload.js" ></script>
+    
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
